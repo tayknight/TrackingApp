@@ -3,17 +3,14 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , mongoose = require('mongoose')
-  , models = require('./models/model.js')
-  , moment = require('moment')
-  , Item;
-  
-var app = module.exports = express.createServer();
+//var routes = require('./routes');
+var mongoose = require('mongoose');
+var models = require('./models/model.js');
+var Item = mongoose.model('Item');
+var express = require('express');
 
-// connect to Mongo when the app initializes
-mongoose.connect('mongodb://localhost/mydb');
+var app = module.exports = express.createServer();
+console.log(Item);
 
 // Configuration
 
@@ -35,22 +32,21 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
-models.defineModels(mongoose, function() {
-	app.Item = Item = mongoose.model('Item');	
-});
-
 app.get('/', function(req, res) {
 	Item.find({}, function(err, documents) {
+        if (!err) {
 		res.render('index.jade', {
 			locals: {title: 'Items', items: documents}
 				});
+        }
+        else { throw err; }
 		});
+
 });
 
-app.post('/', function(req,res) {
+app.post('/Send', function(req,res) {
 	var i = new Item(req.body.i);
 	i.save(function() {
-		//req.flash('info', 'Item created');
 		res.redirect('/');
 	});
 });

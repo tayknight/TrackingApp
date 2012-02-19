@@ -1,42 +1,40 @@
 body
     div.container
         div.row
-            div.span8
-                form(method="post").form-horizontal
+            div.span12
+                form(action="Send").form-horizontal
                     fieldset
                         legend What happened?
                         div.control-group
                             label.control-label(for="i[verb]") Verb
                             div.controls
                                 input(type="text", name="i[verb]", id="editItemVerb", placeholder="verb").span4
-                        div.control-group                        
+                        div.control-group
                             label.control-label(for="i[determinative]") Determinative
                             div.controls
                                 input(type="text", name="i[determinative]", id="editItemDeterminative", placeholder="determinative").span4
                         div.control-group
                             label.control-label(for="i[noun]") Noun
-                            div.controls                        
+                            div.controls
                                 input(type="text", name="i[noun]", id="editItemNoun", placeholder="noun").span4
                         div.control-group
                             label.control-label(for="i[comment]") Comment
-                            div.controls                        
+                            div.controls
                                 input(type="text", name="i[comment]", id="editItemComment", placeholder="comment").span4
                         div.form-actions
                             button(type.submit).btn.btn-primary Send
-        #items
-        //
-            table.table.table-striped.table-condensed
-                thead
-                    tr
-                        td.span2 Created
-                        td.span2 Verb
-                        td.span2 Determinative
-                        td.span2 Noun
-                        td.span2 Comment
-                - each item in items
-                    tr
-                        td.created_at= item.created.toUTCString();
-                        td.verb= item.verb
-                        td.determinative= item.determinative
-                        td.noun= item.noun
-                        td.comment= item.comment
+        div.row
+            div.span2 Created
+            div.span2 Verb
+            div.span2 Determinative
+            div.span2 Noun
+            div.span2 Comment
+            div.span2 Actions
+        - each item in items
+            div.row
+                div.span2.shortdate= item.created
+                div.span2= item.verb
+                div.span2= item.Determinatie
+                div.span2= item.noun
+                div.span2= item.comment
+                div.span2
